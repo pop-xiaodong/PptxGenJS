@@ -506,7 +506,7 @@ export function addImageDefinition (target: PresSlide, opt: ImageProps): void {
 				type: SLIDE_OBJECT_TYPES.hyperlink,
 				data: objHyperlink.slide ? 'slide' : 'dummy',
 				rId: imageRelId,
-				Target: objHyperlink.url || objHyperlink.slide.toString(),
+				Target: encodeXmlEntities(objHyperlink.url) || objHyperlink.slide.toString(),
 			})
 
 			objHyperlink._rId = imageRelId

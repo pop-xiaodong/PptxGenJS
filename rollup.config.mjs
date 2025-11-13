@@ -5,11 +5,13 @@ import typescript from "rollup-plugin-typescript2";
 
 const nodeBuiltinsRE = /^node:.*/; /* Regex that matches all Node built-in specifiers */
 
+const outputDir = process.env.OUTPUT_DIR || "src/bld";
+
 export default {
 	input: "src/pptxgen.ts",
 	output: [
 		{
-			file: "./src/bld/pptxgen.js",
+			file: `./${outputDir}/pptxgen.js`,
 			format: "iife",
 			name: "PptxGenJS",
 			globals: { jszip: "JSZip" },

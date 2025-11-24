@@ -7204,14 +7204,6 @@ var PptxGenJS = (function (JSZip) {
                 // STEP 3: Get the binary/Blob from exportPresentation()
                 const outputType = isNode ? 'nodebuffer' : null;
                 const data = yield this.exportPresentation({ compression, outputType });
-                // STEP 4: Write the file out
-                if (isNode) {
-                    // Dynamically import to avoid bundling fs in the browser build
-                    const { promises: fs } = yield import('node:fs');
-                    const { writeFile } = fs;
-                    yield writeFile(fileName, data);
-                    return fileName;
-                }
                 // Browser branch - push a download
                 yield this.writeFileToBrowser(fileName, data);
                 return fileName;

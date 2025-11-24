@@ -1,4 +1,3 @@
-/* PptxGenJS 4.0.1 @ 2025-06-25T23:35:35.096Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -2045,7 +2044,7 @@ function addImageDefinition(target, opt) {
                 type: SLIDE_OBJECT_TYPES.hyperlink,
                 data: objHyperlink.slide ? 'slide' : 'dummy',
                 rId: imageRelId,
-                Target: objHyperlink.url || objHyperlink.slide.toString(),
+                Target: encodeXmlEntities(objHyperlink.url) || objHyperlink.slide.toString(),
             });
             objHyperlink._rId = imageRelId;
             newObject.hyperlink = objHyperlink;
@@ -3076,7 +3075,12 @@ function createExcelWorksheet(chartObject, zip) {
                     });
                 }
                 else {
-                    strTableXml += `<table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="1" name="Table1" displayName="Table1" ref="A1:${getExcelColName(data.length + data[0].labels.length)}${data[0].labels[0].length + 1}'" totalsRowShown="0">`;
+                    // strTableXml += `<table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="1" name="Table1" displayName="Table1" ref="A1:${getExcelColName(data.length + data[0].labels.length)}${data[0].labels[0].length + 1}'" totalsRowShown="0">`
+                    strTableXml +=
+                        '<table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="1" name="Table1" displayName="Table1" ref="A1:' +
+                            getExcelColName(data.length + data[0].labels.length) +
+                            (data[0].labels[0].length + 1) +
+                            '" totalsRowShown="0">';
                     strTableXml += `<tableColumns count="${data.length + data[0].labels.length}">`;
                     data[0].labels.forEach((_labelsGroup, idx) => {
                         strTableXml += `<tableColumn id="${idx + 1}" name="Column${idx + 1}"/>`;

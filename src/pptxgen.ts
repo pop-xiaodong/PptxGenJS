@@ -616,15 +616,6 @@ export default class PptxGenJS implements IPresentationProps {
 		const outputType = isNode ? ('nodebuffer' as const) : null
 		const data = await this.exportPresentation({ compression, outputType })
 
-		// STEP 4: Write the file out
-		if (isNode) {
-			// Dynamically import to avoid bundling fs in the browser build
-			const { promises: fs } = await import('node:fs')
-			const { writeFile } = fs
-			await writeFile(fileName, data as Buffer)
-			return fileName
-		}
-
 		// Browser branch - push a download
 		await this.writeFileToBrowser(fileName, data as Blob)
 		return fileName

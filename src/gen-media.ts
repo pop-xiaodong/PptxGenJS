@@ -18,11 +18,7 @@ export function encodeSlideMediaRels(layout: PresSlide | SlideLayout): Array<Pro
 	let https: typeof import('node:https') | undefined
 
 	// STEP 2: Lazy-load Node built-ins if needed
-	const loadNodeDeps = isNode
-		? async () => {
-			; ({ default: fs } = await import('node:fs')); ({ default: https } = await import('node:https'))
-		}
-		: async () => { }
+	const loadNodeDeps = async () => { }
 	// Immediately start it when we know we’re in Node
 	if (isNode) loadNodeDeps()
 

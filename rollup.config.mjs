@@ -16,8 +16,8 @@ export default {
 			name: "PptxGenJS",
 			globals: { jszip: "JSZip" },
 		},
-		{ file: "./src/bld/pptxgen.cjs.js", format: "cjs", exports: "default" },
-		{ file: "./src/bld/pptxgen.es.js", format: "es" },
+		{ file: `./${outputDir}/pptxgen.cjs.js`, format: "cjs", exports: "default" },
+		{ file: `./${outputDir}/pptxgen.es.js`, format: "es" },
 	],
 	external: [
 		nodeBuiltinsRE,
